@@ -44,6 +44,11 @@ void can_setup(){
 
 void can1_receive_process(){
     //from pc
+    if(can1_rx_id == 0x300){
+        for(int i=0; i<3; i++){
+            pid[i].update_target_speed((float)can1_rx_data[i]);
+        }
+    }
 
 }
 
