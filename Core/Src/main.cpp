@@ -110,7 +110,7 @@ uint8_t can2_rx_data[8];
 //classes (grobal scope)
 robomas_encoder encoders[3];
 pid_control pid[3] = {
-  pid_control(0.0f, 0.0f),
+  pid_control(1.35f, 162.6f),
   pid_control(0.0f, 0.0f),
   pid_control(0.0f, 0.0f)
 };
@@ -898,6 +898,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 			for(int i = 0; i < 8; i++){
 				can2_rx_data[i] = RxData[i];
 			}
+			can2_receive_process();
 		}
 	}
 }

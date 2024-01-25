@@ -6,11 +6,17 @@ void setup(){
 
 void loop(){
     // float motor_pwm[3]; //お守り(メモ):いざとなったら、中身を確認すること
+	for(int i=0; i<3; i++){
+		pid[i].update_target_speed(-200.0f);
+	}
     for(int i = 0; i<3; i++){
         //ここでロボマスからの上位・下位ビットをくっつける -> piの計算 -> ロボマスpwmデータを入れる
-        robomas.input_rotation_data(i, pid[i].motor_calc(encoders[i].show_rpm()));
+    	robomas.input_rotation_data(i, pid[i].motor_calc(encoders[i].show_rpm()));
+//    	encoders[i].show_rpm();
+//    	robomas.input_rotation_data(i, 200);
     }
     robomas.rotate(); //ロボマスpwmデータを送信
+    HAL_Delay(1000);
 }
 
 /*can_functions*/
