@@ -21,12 +21,15 @@ private:
     float gain_d; //未実装のD制御
     static constexpr float DELTA_T = 0.01f;
 
-    float current_target_speed = 0.0f;
+
     float integral = 0.0f; //累積値保存, I制御に使う
 
     float pi_calc(float);
     void clamp(float&, float, float);
 public:
+
+    float current_target_speed = 0.0f;
+
     pid_control(float _gain_p, float _gain_i):gain_p(_gain_p), gain_i(_gain_i){}
     void update_target_speed(float);
     float motor_calc(float);
