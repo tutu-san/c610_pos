@@ -28,4 +28,6 @@ void loop();
 void can_setup();
 void can1_receive_process();
 void can2_receive_process();
+
+int pcdata_to_rpm(uint8_t, uint8_t);
 #endif

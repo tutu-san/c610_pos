@@ -5,18 +5,18 @@ void setup(){
 }
 
 void loop(){
-    // float motor_pwm[3]; //お守り(メモ):いざとなったら、中身を確認すること
-	for(int i=0; i<3; i++){
-		pid[i].update_target_speed(-200.0f);
-	}
+    //debug set_speed (rpm -420~420)
+//	 for(int i=0; i<3; i++){
+//	 	pid[i].update_target_speed(0.0f);
+//	 }
     for(int i = 0; i<3; i++){
         //ここでロボマスからの上位・下位ビットをくっつける -> piの計算 -> ロボマスpwmデータを入れる
     	robomas.input_rotation_data(i, pid[i].motor_calc(encoders[i].show_rpm()));
-//    	encoders[i].show_rpm();
-//    	robomas.input_rotation_data(i, 200);
+        //degug set_pwm_data
+   	    //encoders[i].show_rpm();
+   	    //robomas.input_rotation_data(i, 200);
     }
     robomas.rotate(); //ロボマスpwmデータを送信
-    HAL_Delay(1000);
 }
 
 /*can_functions*/
@@ -51,8 +51,12 @@ void can_setup(){
 void can1_receive_process(){
     //from pc
     if(can1_rx_id == 0x300){
+    	int rpm_data_from_pc[3] = {0,0,0};
+    	rpm_data_from_pc[0] = pcdata_to_rpm(can1_rx_data[0], can1_rx_data[1]);
+    	rpm_data_from_pc[1] = pcdata_to_rpm(can1_rx_data[2], can1_rx_data[3]);
+    	rpm_data_from_pc[2] = pcdata_to_rpm(can1_rx_data[4], can1_rx_data[5]);
         for(int i=0; i<3; i++){
-            pid[i].update_target_speed((float)can1_rx_data[i]);
+        	pid[i].update_target_speed((float)rpm_data_from_pc[i]);
         }
     }
 
@@ -73,4 +77,16 @@ void can2_receive_process(){
     default:
         break;
     }
+}
+
+int pcdata_to_rpm(uint8_t pc_input_data_high, uint8_t pc_input_data_low){
+    //上位,下位ビットの統合
+    uint16_t unsigned_robomas_rpm_data = pc_input_data_high << 8 | pc_input_data_low;
+
+    int16_t signed_robomas_rpm_data = 0;
+
+    signed_robomas_rpm_data = unsigned_robomas_rpm_data;
+
+    //おしまい
+    return signed_robomas_rpm_data;
 }

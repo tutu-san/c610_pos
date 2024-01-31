@@ -111,8 +111,8 @@ uint8_t can2_rx_data[8];
 robomas_encoder encoders[3];
 pid_control pid[3] = {
   pid_control(1.35f, 162.6f),
-  pid_control(0.0f, 0.0f),
-  pid_control(0.0f, 0.0f)
+  pid_control(1.35f, 162.6f),
+  pid_control(1.35f, 162.6f)
 };
 robomas_rotation robomas(&hfdcan2);
 /* USER CODE END 0 */
@@ -304,10 +304,10 @@ static void MX_FDCAN1_Init(void)
   hfdcan1.Init.AutoRetransmission = DISABLE;
   hfdcan1.Init.TransmitPause = DISABLE;
   hfdcan1.Init.ProtocolException = DISABLE;
-  hfdcan1.Init.NominalPrescaler = 6;
+  hfdcan1.Init.NominalPrescaler = 3;
   hfdcan1.Init.NominalSyncJumpWidth = 4;
-  hfdcan1.Init.NominalTimeSeg1 = 13;
-  hfdcan1.Init.NominalTimeSeg2 = 6;
+  hfdcan1.Init.NominalTimeSeg1 = 12;
+  hfdcan1.Init.NominalTimeSeg2 = 7;
   hfdcan1.Init.DataPrescaler = 1;
   hfdcan1.Init.DataSyncJumpWidth = 4;
   hfdcan1.Init.DataTimeSeg1 = 1;
