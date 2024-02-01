@@ -81,11 +81,10 @@ void can2_receive_process(){
 
 int pcdata_to_rpm(uint8_t pc_input_data_high, uint8_t pc_input_data_low){
     //上位,下位ビットの統合
-    uint16_t unsigned_robomas_rpm_data = pc_input_data_high << 8 | pc_input_data_low;
+    uint16_t unsigned_rpm_data = pc_input_data_high << 8 | pc_input_data_low;
+    int16_t signed_rpm_data = 0;
 
-    int16_t signed_robomas_rpm_data = 0;
-
-    signed_robomas_rpm_data = unsigned_robomas_rpm_data;
+    signed_rpm_data = unsigned_rpm_data;
 
     //おしまい
     return signed_robomas_rpm_data;

@@ -22,8 +22,6 @@ float pid_control::pi_calc(float current_speed){
 
 //現在の目標速度設定(rpmで来る)
 void pid_control::update_target_speed(float input_speed){
-//    float checked_new_speed = 0.0f;
-
 	this->current_target_speed = input_speed;
 }
 
