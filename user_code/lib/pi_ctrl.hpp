@@ -24,6 +24,8 @@ private:
     float current_target_speed = 0.0f;
     float integral = 0.0f; //累積値保存, I制御に使う
 
+    float result_motor_pwm = 0.0f;
+
     float pi_calc(float);
     void clamp(float&, float, float);
 public:

@@ -2,19 +2,27 @@
 /*main_functions*/
 void setup(){
     can_setup();
+    encoders[0].first_axis_pos();
 }
 
 void loop(){
-    //debug set_speed (rpm -420~420)
-//	 for(int i=0; i<3; i++){
-//	 	pid[i].update_target_speed(0.0f);
-//	 }
+    //debug set_speed (deg)
+	 for(int i=0; i<3; i++){
+	 	pid[i].update_target_speed(180.0f);
+	 }
     for(int i = 0; i<3; i++){
         //ここでロボマスからの上位・下位ビットをくっつける -> piの計算 -> ロボマスpwmデータを入れる
-    	robomas.input_rotation_data(i, pid[i].motor_calc(encoders[i].show_rpm()));
+//    	int robomas_rpm[3] = {150,0,0};
+//    	robomas_rpm[i] = encoders[i].show_rpm();
+    	robomas.input_rotation_data(i, pid[i].motor_calc((float)(encoders[i].show_pos())));
         //degug set_pwm_data
    	    //encoders[i].show_rpm();
-   	    //robomas.input_rotation_data(i, 200);
+//   	    robomas.input_rotation_data(i, 0);
+//   	    encoders[i].show_pos();
+//   	    if(encoders[0].show_pos() > 360.0f){
+//   	    	test_pwm = 0;
+//   	    }
+//   	    encoders[i].reset_positon(20);
     }
     robomas.rotate(); //ロボマスpwmデータを送信
 }
@@ -87,5 +95,5 @@ int pcdata_to_rpm(uint8_t pc_input_data_high, uint8_t pc_input_data_low){
     signed_rpm_data = unsigned_rpm_data;
 
     //おしまい
-    return signed_robomas_rpm_data;
+    return signed_rpm_data;
 }

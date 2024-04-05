@@ -110,11 +110,14 @@ uint8_t can2_rx_data[8];
 //classes (grobal scope)
 robomas_encoder encoders[3];
 pid_control pid[3] = {
-  pid_control(1.35f, 162.6f),
-  pid_control(1.35f, 162.6f),
-  pid_control(1.35f, 162.6f)
+  pid_control(0.85f, 0.20f),
+  pid_control(0.0f, 0.0f),
+  pid_control(0.0f, 0.0f)
 };
 robomas_rotation robomas(&hfdcan2);
+
+int test_pwm = 250;
+
 /* USER CODE END 0 */
 
 /**

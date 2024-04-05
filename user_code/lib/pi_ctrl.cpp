@@ -22,12 +22,12 @@ float pid_control::pi_calc(float current_speed){
 
 //現在の目標速度設定(rpmで来る)
 void pid_control::update_target_speed(float input_speed){
+    pid_control::clamp(input_speed, -420.0f, 420.0f);
 	this->current_target_speed = input_speed;
 }
 
 //エンコーダーの入力から、PWMの値を求める
 float pid_control::motor_calc(float meter_per_sec){
-    float result_motor_pwm = 0.0f;
 
     result_motor_pwm = this->pi_calc(meter_per_sec);
 
