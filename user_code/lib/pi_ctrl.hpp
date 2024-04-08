@@ -19,7 +19,7 @@ private:
     float gain_p;
     float gain_i;
     float gain_d; //未実装のD制御
-    static constexpr float DELTA_T = 0.01f;
+    static constexpr float DELTA_T = 0.005f;
 
     float current_target_speed = 0.0f;
     float integral = 0.0f; //累積値保存, I制御に使う

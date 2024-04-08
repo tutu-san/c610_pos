@@ -110,7 +110,7 @@ uint8_t can2_rx_data[8];
 //classes (grobal scope)
 robomas_encoder encoders[3];
 pid_control pid[3] = {
-  pid_control(0.85f, 0.20f),
+  pid_control(0.65f, 0.20f),
   pid_control(0.0f, 0.0f),
   pid_control(0.0f, 0.0f)
 };
@@ -161,7 +161,7 @@ int main(void)
   MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
   setup();
-  uint32_t tickstart = 0, while_loop_time = 10; //loop timer (ms)
+  uint32_t tickstart = 0, while_loop_time = 5; //loop timer (ms)
   /* USER CODE END 2 */
 
   /* Infinite loop */
