@@ -8,11 +8,12 @@ void setup(){
 void loop(){
     //debug set_speed (deg)
     for(int i=0; i<3; i++){
-        pid[i].update_target_speed(180.0f);
+        pid_position[i].update_target_speed(180.0f);
     }
     for(int i = 0; i<3; i++){
         //ここでロボマスからの上位・下位ビットをくっつける -> 角度出す -> 目標角度との比較をする
-        robomas.input_rotation_data(i, pid_speed[i].motor_calc(pid_position[i].motor_calc((float)(encoders[i].show_pos()))));
+        pid_speed[i].update_target_speed(pid_position[i].motor_calc(encoders[i].show_pos()));
+        robomas.input_rotation_data(i, pid_speed[i].motor_calc(encoders[i].show_rpm()));
     }
     robomas.rotate(); //ロボマスpwmデータを送信
 }
@@ -54,7 +55,7 @@ void can1_receive_process(){
     	rpm_data_from_pc[1] = pcdata_to_rpm(can1_rx_data[2], can1_rx_data[3]);
     	rpm_data_from_pc[2] = pcdata_to_rpm(can1_rx_data[4], can1_rx_data[5]);
         for(int i=0; i<3; i++){
-        	pid[i].update_target_speed((float)rpm_data_from_pc[i]);
+        	pid_position[i].update_target_speed((float)rpm_data_from_pc[i]);
         }
     }
 
