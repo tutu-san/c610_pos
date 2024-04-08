@@ -19,7 +19,8 @@ extern uint32_t can2_rx_id;
 extern uint8_t can2_rx_data[8];
 
 extern robomas_encoder encoders[3];
-extern pid_control pid[3];
+extern pid_control pid_position[3];
+extern pid_control pid_speed[3];
 extern robomas_rotation robomas;
 
 extern int test_pwm;

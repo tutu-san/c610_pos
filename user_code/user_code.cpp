@@ -7,22 +7,12 @@ void setup(){
 
 void loop(){
     //debug set_speed (deg)
-	 for(int i=0; i<3; i++){
-	 	pid[i].update_target_speed(180.0f);
-	 }
+    for(int i=0; i<3; i++){
+        pid[i].update_target_speed(180.0f);
+    }
     for(int i = 0; i<3; i++){
-        //ここでロボマスからの上位・下位ビットをくっつける -> piの計算 -> ロボマスpwmデータを入れる
-//    	int robomas_rpm[3] = {150,0,0};
-//    	robomas_rpm[i] = encoders[i].show_rpm();
-    	robomas.input_rotation_data(i, pid[i].motor_calc((float)(encoders[i].show_pos())));
-        //degug set_pwm_data
-   	    //encoders[i].show_rpm();
-//   	    robomas.input_rotation_data(i, 0);
-//   	    encoders[i].show_pos();
-//   	    if(encoders[0].show_pos() > 360.0f){
-//   	    	test_pwm = 0;
-//   	    }
-//   	    encoders[i].reset_positon(20);
+        //ここでロボマスからの上位・下位ビットをくっつける -> 角度出す -> 目標角度との比較をする
+        robomas.input_rotation_data(i, pid_speed[i].motor_calc(pid_position[i].motor_calc((float)(encoders[i].show_pos()))));
     }
     robomas.rotate(); //ロボマスpwmデータを送信
 }
