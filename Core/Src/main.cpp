@@ -110,12 +110,12 @@ uint8_t can2_rx_data[8];
 //classes (grobal scope)
 robomas_encoder encoders[3];
 pid_control pid_position[3] = {
-  pid_control(0.0f, 0.0f),
+  pid_control(0.50f, 0.05f),
   pid_control(0.0f, 0.0f),
   pid_control(0.0f, 0.0f)
 };
 pid_control pid_speed[3] = {
-  pid_control(0.0f, 0.0f),
+  pid_control(67.5f, 813.0f),
   pid_control(0.0f, 0.0f),
   pid_control(0.0f, 0.0f)
 };
